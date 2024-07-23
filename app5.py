@@ -45,14 +45,19 @@ def generate_response(prompt, pdf_text):
     input_text = f"""
     **Retrieval-Augmented Generation (RAG) Response:**
     {pdf_text}
+    
     Generating a detailed and contextually relevant response based on the provided prompt: `{prompt}`.
     Here's how to proceed:
+    
     1. **Retrieve Relevant Information:**
        - Utilize retrieval techniques to gather pertinent data or documents related to `{prompt}`. This could include searching databases, accessing specific repositories, or querying relevant sources.
+    
     2. **Generate Response:**
        - Based on the retrieved information, craft a comprehensive response that addresses the context of `{prompt}`. Ensure the response is coherent, informative, and directly relates to the input.
+    
     3. **Example Structure for Response:**
        - Your generated response should adhere to a structured format, incorporating insights gleaned from the retrieved data. Consider organizing the response to provide clear and actionable information.
+    
     4. **Quality Assurance:**
        - Validate the accuracy and relevance of the generated response against the original query `{prompt}`. Ensure that the response meets expected standards of completeness and depth.
     ---
