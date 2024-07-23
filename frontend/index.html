@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Upload and Query</title>
+</head>
+<body>
+    <h1>Upload a PDF File</h1>
+    <form id="pdfUploadForm" enctype="multipart/form-data">
+        <input type="file" id="pdfFileInput" name="pdf_file" accept=".pdf" required>
+        <button type="submit">Upload PDF</button>
+    </form>
+
+    <h1>Query Prompt</h1>
+    <form id="queryForm">
+        <label for="prompt">Enter your query prompt:</label><br>
+        <input type="text" id="prompt" name="prompt" required><br><br>
+        <button type="submit">Submit Query</button>
+    </form>
+
+    <div id="responseContainer">
+        <!-- Response from backend will be displayed here -->
+    </div>
+
+    <script>
+        document.getElementById('pdfUploadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData();
+            const pdfFile = document.getElementById('pdfFileInput').files[0];
+            formData.append('pdf_file', pdfFile);
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                alert(data.message); // Display success or error message
+            } catch (error) {
+                console.error('Error uploading PDF:', error);
+                alert('Error uploading PDF. Please try again.');
+            }
+        });
+
+        document.getElementById('queryForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const prompt = document.getElementById('prompt').value.trim();
+
+            try {
+                const response = await fetch('/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ prompt })
+                });
+                const data = await response.json();
+                displayResponse(data.response);
+            } catch (error) {
+                console.error('Error querying:', error);
+                alert('Error querying. Please try again.');
+            }
+        });
+
+        function displayResponse(response) {
+            const responseContainer = document.getElementById('responseContainer');
+            responseContainer.innerHTML = `<h2>Response:</h2><p>${response}</p>`;
+        }
+    </script>
+</body>
+</html>
