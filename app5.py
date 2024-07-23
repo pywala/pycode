@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
-import fitz  # PyMuPDF
+import fitz
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
